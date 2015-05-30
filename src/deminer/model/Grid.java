@@ -1,4 +1,4 @@
-package model;
+package deminer.model;
 
 import java.awt.Point;
 import java.util.ArrayList;

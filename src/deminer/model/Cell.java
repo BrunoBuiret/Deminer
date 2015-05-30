@@ -1,4 +1,4 @@
-package model;
+package deminer.model;
 
 /**
  * @author Bruno Buiret, Thomas Arnaud

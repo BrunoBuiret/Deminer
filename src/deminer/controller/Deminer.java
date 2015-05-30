@@ -1,4 +1,4 @@
-package controller;
+package deminer.controller;
 
 /**
  * @author Bruno Buiret, Thomas Arnaud

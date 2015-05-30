@@ -1,11 +1,11 @@
-package view;
+package deminer.view;
 
 import javax.swing.JDialog;
 
 /**
  * @author Bruno Buiret, Thomas Arnaud
  */
-public class StatisticsDialog extends JDialog
+public class OptionsDialog extends JDialog
 {
     
 }

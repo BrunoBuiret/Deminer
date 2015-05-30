@@ -1,4 +1,4 @@
-package view;
+package deminer.view;
 
 import javax.swing.JComponent;
 
