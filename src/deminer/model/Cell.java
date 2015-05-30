@@ -1,15 +1,12 @@
 package deminer.model;
 
+import java.util.Observable;
+
 /**
  * @author Bruno Buiret, Thomas Arnaud
  */
-public class Cell
+public class Cell extends Observable
 {
-    /**
-     * Reference to the grid.
-     */
-    protected Grid grid;
-    
     /**
      * Is the cell discovered ?
      */
@@ -27,12 +24,9 @@ public class Cell
     
     /**
      * Creates a new cell.
-     * 
-     * @param grid Reference to the grid.
      */
-    public Cell(Grid grid)
+    public Cell()
     {
-        this.grid = grid;
         this.discovered = this.trapped = this.flagged = false;
     }
     
@@ -56,6 +50,7 @@ public class Cell
     public void setDiscovered(boolean discovered)
     {
         this.discovered = discovered;
+        this.notifyObservers();
     }
     
     /**
@@ -78,6 +73,7 @@ public class Cell
     public void setTrapped(boolean trapped)
     {
         this.trapped = trapped;
+        this.notifyObservers();
     }
     
     /**
@@ -100,5 +96,20 @@ public class Cell
     public void setFlag(boolean flagged)
     {
         this.flagged = flagged;
+        this.notifyObservers();
+    }
+    
+    @Override
+    public void notifyObservers()
+    {
+        this.setChanged();
+        super.notifyObservers();
+    }
+    
+    @Override
+    public void notifyObservers(Object arg)
+    {
+        this.setChanged();
+        super.notifyObservers(arg);
     }
 }

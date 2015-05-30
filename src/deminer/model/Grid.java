@@ -48,7 +48,7 @@ public class Grid
         {
             for(int x = 0; x < cols; x++)
             {
-                this.cells[x][y] = new Cell(this);
+                this.cells[x][y] = new Cell();
                 cellsMap.put(this.cells[x][y], new Point(x,y));
             }
         }
@@ -67,7 +67,7 @@ public class Grid
         
         for(int y = (int) (point.getY() - 1); y <= point.getY() + 1; y++)
             for(int x = (int) (point.getX() - 1); y <= point.getX() + 1; y++)
-                if(x >= 0 && y >= 0 && x < this.cols && y < this.rows && x != point.getX() && y != point.getY())
+                if(x >= 0 && y >= 0 && x < this.cols && y < this.rows && x != point.getX() && y != point.getY()) // Vérifier condition x != point.getX() ...
                     neighbours.add(this.cells[x][y]);
         
         return neighbours;

@@ -1,5 +1,6 @@
 package deminer;
 
+import deminer.controller.Deminer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -21,5 +22,8 @@ public abstract class Program
         {
             Logger.getLogger(Program.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         }
+        
+        // Launch the controller
+        Deminer d = new Deminer();
     }
 }
