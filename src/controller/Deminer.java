@@ -1,9 +1,9 @@
 package controller;
 
 /**
- *
- * @author PtitBlond
+ * @author Bruno Buiret, Thomas Arnaud
  */
-public class Deminer {
+public class Deminer
+{
     
 }

@@ -1,9 +1,11 @@
 package view;
 
+import javax.swing.JWindow;
+
 /**
- *
- * @author PtitBlond
+ * @author Bruno Buiret, Thomas Arnaud
  */
-public class MainWindow {
+public class MainWindow extends JWindow
+{
     
 }

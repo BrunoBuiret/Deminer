@@ -1,9 +1,11 @@
 package view;
 
+import javax.swing.JDialog;
+
 /**
- *
- * @author PtitBlond
+ * @author Bruno Buiret, Thomas Arnaud
  */
-public class OptionsDialog {
+public class OptionsDialog extends JDialog
+{
     
 }

@@ -1,9 +1,11 @@
 package view;
 
+import javax.swing.JComponent;
+
 /**
- *
- * @author PtitBlond
+ * @author Bruno Buiret, Thomas Arnaud
  */
-public class Grid {
+public class Grid extends JComponent
+{
     
 }
