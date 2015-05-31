@@ -3,7 +3,7 @@ Projet personnel encadré
 Réalisation d'un démineur en Java en appliquant le modèle de conception MVC et
 la librairie graphique Swing.
 
-# Interactions vue / modèle
+## Interactions vue / modèle
 * Lorsque l'utilisateur effectue un clic gauche sur une case
   * Si la case est __vide__ alors
     * Si la case est une mine, le jeu est terminée et l'utilisateur a perdu
@@ -16,5 +16,5 @@ vides atteignables par adjacence ait été testées
   * Si la case est __vide__ alors on bascule le drapeau
   * Si la case n'est __pas vide__ alors on ne fait rien
 
-# Crédits
+## Crédits
 * Icônes extraits de la version 3.5.2 de [Fugue Icons](http://p.yusukekamiyamane.com/)
