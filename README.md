@@ -7,8 +7,7 @@ la librairie graphique Swing.
 * Lorsque l'utilisateur effectue un clic gauche sur une case
   * Si la case est __vide__ alors
     * Si la case est une mine, le jeu est terminée et l'utilisateur a perdu
-    * Si la case n'est pas une mine et qu'il y a des mines auteur, on écrit le nombre
-de mines adjacentes
+    * Si la case n'est pas une mine et qu'il y a des mines auteur, on écrit le nombre de mines adjacentes
     * Si la case n'est pas une mine et qu'il n'y a pas de mines autour, alors on
 propage l'écriture du nombre de mines adjacentes jusqu'à ce que toutes les cases
 vides atteignables par adjacence ait été testées
