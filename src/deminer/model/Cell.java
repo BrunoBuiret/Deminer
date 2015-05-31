@@ -99,6 +99,19 @@ public class Cell extends Observable
         this.notifyObservers();
     }
     
+    /**
+     * Toggles the flag on the cell.
+     */
+    public void toggleFlag()
+    {
+        this.flagged = !this.flagged;
+        this.notifyObservers();
+    }
+    
+    /**
+     * Overrides {@link java.util.Observable.notifyObservers()} to avoid repeating
+     * the {@link java.util.Observable.setChanged()} method.
+     */
     @Override
     public void notifyObservers()
     {

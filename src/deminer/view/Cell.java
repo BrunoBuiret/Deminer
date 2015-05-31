@@ -1,11 +1,13 @@
 package deminer.view;
 
 import java.awt.Dimension;
+import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
@@ -19,8 +21,9 @@ public class Cell extends JLabel implements Observer
     protected static final Dimension MAXIMUM_DIMENSION = new Dimension(40, 40);
     
     protected static final Border NON_DISCOVERED_BORDER = BorderFactory.createBevelBorder(BevelBorder.RAISED);
-    
     protected static final Border DISCOVERED_BORDER = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
+    
+    public static final Color HOVER_COLOR = Color.GRAY;
     
     /**
      * Creates a new view of a cell.
@@ -31,6 +34,7 @@ public class Cell extends JLabel implements Observer
         this.setPreferredSize(Cell.PREFERRED_DIMENSION);
         this.setMaximumSize(Cell.MAXIMUM_DIMENSION);
         this.setBorder(Cell.NON_DISCOVERED_BORDER);
+        this.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     /**
@@ -52,7 +56,7 @@ public class Cell extends JLabel implements Observer
                 
                 if(model.isTrapped())
                 {
-                    this.setIcon(new ImageIcon(this.getClass().getResource("/deminer/resources/flag.png")));
+                    this.setIcon(new ImageIcon(this.getClass().getResource("/deminer/resources/bomb.png")));
                 }
                 else
                 {

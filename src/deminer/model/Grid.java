@@ -34,24 +34,17 @@ public class Grid
     /**
      * Creates a new grid model.
      * 
+     * @param cells
      * @param cols Grid's columns number.
      * @param rows Grid's rows number.
+     * @param cellsMap
      */
-    public Grid(int cols, int rows)
+    public Grid(Cell[][] cells, int cols, int rows, Map<Cell, Point> cellsMap)
     {
         this.cols = cols;
         this.rows = rows;
-        this.cells = new Cell[cols][rows];
-        this.cellsMap = new HashMap<Cell, Point>();
-        
-        for(int y = 0; y < rows; y++)
-        {
-            for(int x = 0; x < cols; x++)
-            {
-                this.cells[x][y] = new Cell();
-                cellsMap.put(this.cells[x][y], new Point(x,y));
-            }
-        }
+        this.cells = cells;
+        this.cellsMap = cellsMap;
     }
     
     /**

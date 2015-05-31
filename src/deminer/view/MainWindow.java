@@ -70,5 +70,6 @@ public class MainWindow extends JFrame
     public void setCells(Cell[][] cells, int cols, int rows)
     {
         this.grid.setCells(cells, cols, rows);
+        this.pack();
     }
 }
