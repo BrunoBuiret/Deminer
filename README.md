@@ -16,4 +16,5 @@ vides atteignables par adjacence ait été testées
   * Si la case n'est __pas vide__ alors on ne fait rien
 
 ## Crédits
-* Icônes extraits de la version 3.5.2 de [Fugue Icons](http://p.yusukekamiyamane.com/)
+* Icônes extraits de la version 3.5.2 de [Fugue Icons](http://p.yusukekamiyamane.com/) et
+de [IconFinder](https://www.iconfinder.com/icons/1232/bomb_explosive_icon#size=128)

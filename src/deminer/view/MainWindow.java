@@ -1,6 +1,8 @@
 package deminer.view;
 
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -18,13 +20,18 @@ public class MainWindow extends JFrame
     {
         // Window parameters
         this.setTitle("Démineur");
+        this.setIconImage((new ImageIcon(this.getClass().getResource("/deminer/resources/window-icon.png"))).getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Build the game menu
         JMenu gameMenu = new JMenu("Partie");
         
-        JMenuItem newGameItem = new JMenuItem("Nouvelle partie");
-        newGameItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        JMenu newGameMenu = new JMenu("Nouvelle partie");
+        
+        JMenuItem easyGameItem = new JMenuItem("Facile");
+        JMenuItem mediumGameItem = new JMenuItem("Moyen");
+        JMenuItem hardGameItem = new JMenuItem("Difficile");
+        JMenuItem customGameItem = new JMenuItem("Personnalisée");
         
         JMenuItem statisticsItem = new JMenuItem("Statistiques");
         statisticsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
@@ -36,7 +43,11 @@ public class MainWindow extends JFrame
         
         JMenuItem exitItem = new JMenuItem("Quitter");
         
-        gameMenu.add(newGameItem);
+        newGameMenu.add(easyGameItem);
+        newGameMenu.add(mediumGameItem);
+        newGameMenu.add(hardGameItem);
+        newGameMenu.add(customGameItem);
+        gameMenu.add(newGameMenu);
         gameMenu.addSeparator();
         gameMenu.add(statisticsItem);
         gameMenu.add(optionsItem);
