@@ -23,11 +23,17 @@ public class Cell extends Observable
     protected boolean flagged;
     
     /**
+     * reference to the grid
+     */
+    protected Grid grid;
+    
+    /**
      * Creates a new cell.
      */
     public Cell()
     {
         this.discovered = this.trapped = this.flagged = false;
+        this.grid = null;
     }
     
     /**
@@ -106,6 +112,16 @@ public class Cell extends Observable
     {
         this.flagged = !this.flagged;
         this.notifyObservers();
+    }
+    
+    public Grid getGrid()
+    {
+        return this.grid;
+    }
+    
+    public void setGrid(Grid grid)
+    {
+        this.grid = grid;
     }
     
     /**

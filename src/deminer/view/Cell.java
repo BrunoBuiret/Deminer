@@ -24,6 +24,21 @@ public class Cell extends JLabel implements Observer
     protected static final Border DISCOVERED_BORDER = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
     
     public static final Color HOVER_COLOR = Color.GRAY;
+    protected static final Color[] COLORS = new Color[9];
+    
+    static
+    {
+        Cell.COLORS[0] = Color.GREEN;
+        Cell.COLORS[1] = Color.BLUE;
+        Cell.COLORS[2] = Color.MAGENTA;
+        Cell.COLORS[3] = Color.YELLOW;
+        Cell.COLORS[4] = Color.ORANGE;
+        Cell.COLORS[5] = Color.RED;
+        Cell.COLORS[6] = Color.pink;
+        Cell.COLORS[7] = Color.DARK_GRAY;
+        Cell.COLORS[8] = Color.BLACK;
+    }
+    
     
     /**
      * Creates a new view of a cell.
@@ -53,6 +68,7 @@ public class Cell extends JLabel implements Observer
             if(model.isDiscovered())
             {
                 this.setBorder(Cell.DISCOVERED_BORDER);
+                this.setBackground(null);
                 
                 if(model.isTrapped())
                 {

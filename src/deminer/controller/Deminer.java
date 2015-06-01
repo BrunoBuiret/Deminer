@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Stack;
 import javax.swing.SwingUtilities;
 
 /**
@@ -143,6 +144,43 @@ public class Deminer extends MouseAdapter
         this.mainWindow.setCells(cellsView, cols, rows);
     }
     
+    protected void propagateDiscovery(deminer.model.Cell firstCell)
+    {
+        if(!firstCell.isDiscovered())
+        {
+            Stack<deminer.model.Cell> stack = new Stack<>();
+            stack.push(firstCell);
+            
+            while(!stack.empty())
+            {
+                deminer.model.Cell currentCell = stack.pop();
+                Map<String, deminer.model.Cell> neighboursMap = currentCell.getGrid().getNeighbours(currentCell);
+                
+                currentCell.setDiscovered(true);
+               
+                if(neighboursMap.containsKey("north") && !neighboursMap.get("north").isDiscovered())
+                {
+                    stack.push(neighboursMap.get("north"));
+                }
+                
+                if(neighboursMap.containsKey("south") && !neighboursMap.get("south").isDiscovered())
+                {
+                    stack.push(neighboursMap.get("south"));
+                }
+                
+                if(neighboursMap.containsKey("east") && !neighboursMap.get("east").isDiscovered())
+                {
+                    stack.push(neighboursMap.get("east"));
+                }
+                
+                if(neighboursMap.containsKey("west") && !neighboursMap.get("west").isDiscovered())
+                {
+                    stack.push(neighboursMap.get("west"));
+                }
+            }
+        }
+    }
+    
     /**
      * Called when the user clicks on a cell.
      * 
@@ -154,10 +192,10 @@ public class Deminer extends MouseAdapter
         deminer.view.Cell cellView = (deminer.view.Cell) e.getSource();
         deminer.model.Cell cellModel = this.cellsCorrespondence.get(cellView);
         
-        if(e.getButton() == MouseEvent.BUTTON1 && !cellModel.isFlagged())
+        if(e.getButton() == MouseEvent.BUTTON1 && !cellModel.isFlagged() && !cellModel.isDiscovered())
         {
-            cellModel.setDiscovered(true);
-            cellView.setBackground(null);
+            this.propagateDiscovery(cellModel);
+            
         }
         else if(e.getButton() == MouseEvent.BUTTON3)
         {

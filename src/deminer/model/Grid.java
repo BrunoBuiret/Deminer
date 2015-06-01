@@ -45,6 +45,13 @@ public class Grid
         this.rows = rows;
         this.cells = cells;
         this.cellsMap = cellsMap;
+        for(int y = 0; y < rows; y++)
+        {
+            for(int x = 0; x < cols; x++)
+            {
+                this.cells[x][y].setGrid(this);
+            }
+        }
     }
     
     /**
@@ -53,15 +60,22 @@ public class Grid
      * @param cell Reference to the cell.
      * @return Cell's list of neighbours.
      */
-    public List<Cell> getNeighbours(Cell cell)
+    public Map<String, Cell> getNeighbours(Cell cell)
     {
-        List<Cell> neighbours = new ArrayList<>();
+        Map<String, Cell> neighbours = new HashMap<>();
         Point point = this.cellsMap.get(cell);
         
-        for(int y = (int) (point.getY() - 1); y <= point.getY() + 1; y++)
-            for(int x = (int) (point.getX() - 1); y <= point.getX() + 1; y++)
-                if(x >= 0 && y >= 0 && x < this.cols && y < this.rows && x != point.getX() && y != point.getY()) // Vérifier condition x != point.getX() ...
-                    neighbours.add(this.cells[x][y]);
+        if(point.getY() > 0)
+            neighbours.put("north", this.cells[(int) point.getX()][(int) point.getY() - 1]);
+        
+        if(point.getY() < this.rows - 1)
+            neighbours.put("south", this.cells[(int) point.getX()][(int) point.getY() + 1]);
+        
+        if(point.getX() > 0)
+            neighbours.put("west", this.cells[(int) point.getX() - 1][(int) point.getY()]);
+        
+        if(point.getX() < this.rows - 1)
+            neighbours.put("east", this.cells[(int) point.getX() + 1][(int) point.getY()]);
         
         return neighbours;
     }
