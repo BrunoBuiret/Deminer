@@ -74,7 +74,7 @@ public class Grid
         if(point.getX() > 0)
             neighbours.put("west", this.cells[(int) point.getX() - 1][(int) point.getY()]);
         
-        if(point.getX() < this.rows - 1)
+        if(point.getX() < this.cols - 1)
             neighbours.put("east", this.cells[(int) point.getX() + 1][(int) point.getY()]);
         
         return neighbours;

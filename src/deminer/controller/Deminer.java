@@ -78,7 +78,7 @@ public class Deminer extends MouseAdapter
         
         SwingUtilities.invokeLater(() ->
         {
-            that.createNewGame(Deminer.SETTINGS[Deminer.MEDIUM][0], Deminer.SETTINGS[Deminer.MEDIUM][1], Deminer.SETTINGS[Deminer.MEDIUM][2]);
+            that.createNewGame(Deminer.SETTINGS[Deminer.HARD][0], Deminer.SETTINGS[Deminer.HARD][1], Deminer.SETTINGS[Deminer.HARD][2]);
         });
     }
     
