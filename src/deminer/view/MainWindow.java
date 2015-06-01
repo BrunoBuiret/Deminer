@@ -1,6 +1,5 @@
 package deminer.view;
 
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -37,20 +36,16 @@ public class MainWindow extends JFrame
         statisticsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
         statisticsItem.setEnabled(false);
         
-        JMenuItem optionsItem = new JMenuItem("Options");
-        optionsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
-        optionsItem.setEnabled(false);
-        
         JMenuItem exitItem = new JMenuItem("Quitter");
         
         newGameMenu.add(easyGameItem);
         newGameMenu.add(mediumGameItem);
         newGameMenu.add(hardGameItem);
+        newGameMenu.addSeparator();
         newGameMenu.add(customGameItem);
         gameMenu.add(newGameMenu);
         gameMenu.addSeparator();
         gameMenu.add(statisticsItem);
-        gameMenu.add(optionsItem);
         gameMenu.addSeparator();
         gameMenu.add(exitItem);
         

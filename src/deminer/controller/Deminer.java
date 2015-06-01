@@ -1,7 +1,6 @@
 package deminer.controller;
 
 import deminer.view.MainWindow;
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -83,16 +82,6 @@ public class Deminer extends MouseAdapter
     }
     
     /**
-     * 
-     * 
-     * @param difficulty 
-     */
-    protected void createNewGame(int difficulty)
-    {
-        
-    }
-    
-    /**
      * Creates a new custom game.
      * 
      * @param cols
@@ -104,7 +93,6 @@ public class Deminer extends MouseAdapter
         // Create the model
         deminer.model.Cell[][] cellsModel = new deminer.model.Cell[cols][rows];
         Map<deminer.model.Cell, Point> cellsMap = new HashMap<>();
-        this.cellsCorrespondence = new HashMap<>();
         
         for(int y = 0; y < rows; y++)
         {
@@ -119,6 +107,7 @@ public class Deminer extends MouseAdapter
         
         // Create the view
         deminer.view.Cell[][] cellsView = new deminer.view.Cell[cols][rows];
+        this.cellsCorrespondence = new HashMap<>();
         
         for(int y = 0; y < rows; y++)
         {
