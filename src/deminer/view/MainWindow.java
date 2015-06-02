@@ -86,6 +86,10 @@ public class MainWindow extends JFrame
         hardGameItem.addActionListener((ActionEvent e) -> {
             deminer.createNewGame(Deminer.SETTINGS[Deminer.HARD][0], Deminer.SETTINGS[Deminer.HARD][1], Deminer.SETTINGS[Deminer.HARD][2]);
         });
+        
+        exitItem.addActionListener((ActionEvent e) -> {
+            System.exit(0);
+        });
     }
     
     public void setCells(Cell[][] cells, int cols, int rows)
