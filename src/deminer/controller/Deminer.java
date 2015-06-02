@@ -73,7 +73,7 @@ public class Deminer extends MouseAdapter
         Deminer that = this;
         
         // ...
-        this.mainWindow = new MainWindow();
+        this.mainWindow = new MainWindow(this);
         this.mainWindow.setVisible(true);
         
         SwingUtilities.invokeLater(() ->
@@ -89,7 +89,7 @@ public class Deminer extends MouseAdapter
      * @param rows
      * @param minesNumber 
      */
-    protected void createNewGame(int cols, int rows, int minesNumber)
+    public void createNewGame(int cols, int rows, int minesNumber)
     {
         // Create the model
         deminer.model.Cell[][] cellsModel = new deminer.model.Cell[cols][rows];

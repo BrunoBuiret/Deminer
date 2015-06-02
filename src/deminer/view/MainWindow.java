@@ -1,5 +1,8 @@
 package deminer.view;
 
+import deminer.controller.Deminer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -15,7 +18,7 @@ public class MainWindow extends JFrame
 {
     protected Grid grid;
     
-    public MainWindow()
+    public MainWindow(Deminer deminer)
     {
         // Window parameters
         this.setTitle("Démineur");
@@ -71,6 +74,18 @@ public class MainWindow extends JFrame
         
         // Update the window's size
         this.pack();
+        
+        easyGameItem.addActionListener((ActionEvent e) -> {
+            deminer.createNewGame(Deminer.SETTINGS[Deminer.EASY][0], Deminer.SETTINGS[Deminer.EASY][1], Deminer.SETTINGS[Deminer.EASY][2]);
+        });
+        
+        mediumGameItem.addActionListener((ActionEvent e) -> {
+            deminer.createNewGame(Deminer.SETTINGS[Deminer.MEDIUM][0], Deminer.SETTINGS[Deminer.MEDIUM][1], Deminer.SETTINGS[Deminer.MEDIUM][2]);
+        });
+        
+        hardGameItem.addActionListener((ActionEvent e) -> {
+            deminer.createNewGame(Deminer.SETTINGS[Deminer.HARD][0], Deminer.SETTINGS[Deminer.HARD][1], Deminer.SETTINGS[Deminer.HARD][2]);
+        });
     }
     
     public void setCells(Cell[][] cells, int cols, int rows)
