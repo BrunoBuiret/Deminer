@@ -1,7 +1,9 @@
 package deminer.model;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,22 +60,19 @@ public class Grid
      * @param cell Reference to the cell.
      * @return Cell's list of neighbours.
      */
-    public Map<String, Cell> getNeighbours(Cell cell)
+    public List<Cell> getNeighbours(Cell cell)
     {
-        Map<String, Cell> neighbours = new HashMap<>();
+        List<Cell> neighbours = new ArrayList<>();
         Point point = this.cellsMap.get(cell);
         
-        if(point.getY() > 0)
-            neighbours.put("north", this.cells[(int) point.getX()][(int) point.getY() - 1]);
-        
-        if(point.getY() < this.rows - 1)
-            neighbours.put("south", this.cells[(int) point.getX()][(int) point.getY() + 1]);
-        
-        if(point.getX() > 0)
-            neighbours.put("west", this.cells[(int) point.getX() - 1][(int) point.getY()]);
-        
-        if(point.getX() < this.cols - 1)
-            neighbours.put("east", this.cells[(int) point.getX() + 1][(int) point.getY()]);
+        for(int y = ((int) point.getY()) - 1; y <= ((int) point.getY()) + 1; y++)
+        {
+            for(int x = ((int) point.getX()) - 1; x <= ((int) point.getX()) + 1; x++)
+            {
+                if(x >= 0 && y >= 0 && x < cols && y < rows && !cells[x][y].equals(cell))
+                    neighbours.add(cells[x][y]);
+            }
+        }
         
         return neighbours;
     }
