@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Stack;
@@ -166,29 +167,16 @@ public class Deminer extends MouseAdapter
             while(!stack.empty())
             {
                 deminer.model.Cell currentCell = stack.pop();
-                Map<String, deminer.model.Cell> neighboursMap = currentCell.getGrid().getNeighbours(currentCell);
+                List<deminer.model.Cell> neighboursList = currentCell.getGrid().getNeighbours(currentCell);
                 
                 currentCell.setDiscovered(true);
-
-               
-                if(neighboursMap.containsKey("north") && !neighboursMap.get("north").isDiscovered())
-                {
-                    stack.push(neighboursMap.get("north"));
-                }
                 
-                if(neighboursMap.containsKey("south") && !neighboursMap.get("south").isDiscovered())
+                for(deminer.model.Cell neighbourCell : neighboursList)
                 {
-                    stack.push(neighboursMap.get("south"));
-                }
-                
-                if(neighboursMap.containsKey("east") && !neighboursMap.get("east").isDiscovered())
-                {
-                    stack.push(neighboursMap.get("east"));
-                }
-                
-                if(neighboursMap.containsKey("west") && !neighboursMap.get("west").isDiscovered())
-                {
-                    stack.push(neighboursMap.get("west"));
+                    if(!neighbourCell.isDiscovered() && !neighbourCell.isFlagged() && currentCell.getMinesNumber() == 0)
+                    {
+                        stack.push(neighbourCell);
+                    }
                 }
             }
         }
