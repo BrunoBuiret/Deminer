@@ -24,7 +24,7 @@ public class Cell extends JLabel implements Observer
     protected static final Border DISCOVERED_BORDER = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
     
     public static final Color HOVER_COLOR = Color.GRAY;
-    protected static final Color[] COLORS = new Color[9];
+    protected static final Color[] COLORS = new Color[8];
     
     static
     {
@@ -35,8 +35,7 @@ public class Cell extends JLabel implements Observer
         Cell.COLORS[4] = Color.ORANGE;
         Cell.COLORS[5] = Color.RED;
         Cell.COLORS[6] = Color.pink;
-        Cell.COLORS[7] = Color.DARK_GRAY;
-        Cell.COLORS[8] = Color.BLACK;
+        Cell.COLORS[7] = Color.BLACK;
     }
     
     
@@ -76,8 +75,11 @@ public class Cell extends JLabel implements Observer
                 }
                 else
                 {
-                    if(arg instanceof Integer)
-                        this.setText(((Integer) arg).toString());
+                    if(model.getMinesNumber() > 0)
+                    {
+                        this.setForeground(Cell.COLORS[model.getMinesNumber() - 1]);
+                        this.setText(Integer.toString(model.getMinesNumber()));
+                    }
                 }
             }
             else

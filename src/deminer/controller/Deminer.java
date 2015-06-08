@@ -60,8 +60,8 @@ public class Deminer extends MouseAdapter
         Deminer.SETTINGS[Deminer.MEDIUM][2] = 40;
         
         // Easy game SETTINGS
-        Deminer.SETTINGS[Deminer.HARD][0] = 16;
-        Deminer.SETTINGS[Deminer.HARD][1] = 30;
+        Deminer.SETTINGS[Deminer.HARD][0] = 30;
+        Deminer.SETTINGS[Deminer.HARD][1] = 16;
         Deminer.SETTINGS[Deminer.HARD][2] = 99;
     }
     
@@ -137,6 +137,18 @@ public class Deminer extends MouseAdapter
             while(cellsModel[x][y].isTrapped());
             
             cellsModel[x][y].setTrapped(true);
+            
+            //notify the neighbour cells
+            for(int row = y - 1; row <= y + 1; row++)
+            {
+                for(int column = x - 1; column <= x + 1; column++)
+                {
+                    if(column >= 0 && column < cols && row >= 0 && row < rows && !cellsModel[column][row].isTrapped())
+                    {
+                       cellsModel[column][row].setMinesNumber(cellsModel[column][row].getMinesNumber() + 1);
+                    }
+                }
+            }
             n++;
         }
         while(n < minesNumber);
@@ -157,6 +169,7 @@ public class Deminer extends MouseAdapter
                 Map<String, deminer.model.Cell> neighboursMap = currentCell.getGrid().getNeighbours(currentCell);
                 
                 currentCell.setDiscovered(true);
+
                
                 if(neighboursMap.containsKey("north") && !neighboursMap.get("north").isDiscovered())
                 {

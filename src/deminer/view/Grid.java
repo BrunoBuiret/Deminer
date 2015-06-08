@@ -14,7 +14,7 @@ public class Grid extends JComponent
         this.removeAll();
         
         // Then, create the new grid
-        this.setLayout(new GridLayout(cols, rows));
+        this.setLayout(new GridLayout(rows, cols));
         
         for(int y = 0; y < rows; y++)
         {

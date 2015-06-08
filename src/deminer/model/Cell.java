@@ -8,6 +8,11 @@ import java.util.Observable;
 public class Cell extends Observable
 {
     /**
+     * neighbour mines number
+     */
+    protected int minesNumber;
+    
+    /**
      * Is the cell discovered ?
      */
     protected boolean discovered;
@@ -34,6 +39,7 @@ public class Cell extends Observable
     {
         this.discovered = this.trapped = this.flagged = false;
         this.grid = null;
+        minesNumber = 0;
     }
     
     /**
@@ -122,6 +128,16 @@ public class Cell extends Observable
     public void setGrid(Grid grid)
     {
         this.grid = grid;
+    }
+    
+    public int getMinesNumber()
+    {
+        return this.minesNumber;
+    }
+    
+    public void setMinesNumber(int minesNumber)
+    {
+        this.minesNumber = minesNumber;
     }
     
     /**
