@@ -75,7 +75,11 @@ public class Cell extends JLabel implements Observer
                 }
                 else
                 {
-                    if(model.getMinesNumber() > 0)
+                    if(model.isFlagged())
+                    {
+                        this.setIcon(new ImageIcon(this.getClass().getResource("/deminer/resources/flag-black.png")));
+                    }
+                    else if(model.getMinesNumber() > 0)
                     {
                         this.setForeground(Cell.COLORS[model.getMinesNumber() - 1]);
                         this.setText(Integer.toString(model.getMinesNumber()));

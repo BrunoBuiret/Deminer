@@ -1,9 +1,11 @@
 package deminer.view;
 
 import deminer.controller.Deminer;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +24,10 @@ import javax.swing.SpinnerNumberModel;
 public class MainWindow extends JFrame
 {
     protected Grid grid;
+    
+    protected JLabel timer;
+    
+    protected JLabel remainingFlags;
     
     public MainWindow(Deminer deminer)
     {
@@ -69,6 +75,50 @@ public class MainWindow extends JFrame
         menuBar.add(helpMenu);
         
         // Build the window's body
+        this.getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
+        
+        JPanel headerPanel = new JPanel();
+        GridBagConstraints gridBagConstraints;
+        java.awt.GridBagLayout headerLayout = new java.awt.GridBagLayout();
+        headerLayout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
+        headerLayout.rowHeights = new int[] {0};
+        headerPanel.setLayout(headerLayout);
+
+        JLabel scoreIcon = new JLabel();
+        scoreIcon.setIcon(new ImageIcon(this.getClass().getResource("/deminer/resources/game.png")));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        headerPanel.add(scoreIcon, gridBagConstraints);
+
+        this.remainingFlags = new JLabel();
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        headerPanel.add(remainingFlags, gridBagConstraints);
+
+        this.timer = new JLabel();
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weightx = 0.1;
+        headerPanel.add(timer, gridBagConstraints);
+
+        JLabel timerIcon = new JLabel();
+        timerIcon.setIcon(new ImageIcon(this.getClass().getResource("/deminer/resources/clock.png")));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        headerPanel.add(timerIcon, gridBagConstraints);
+        
+        this.add(headerPanel);
         this.add(this.grid = new Grid());
         
         // Update the window's size
@@ -129,5 +179,10 @@ public class MainWindow extends JFrame
     {
         this.grid.setCells(cells, cols, rows);
         this.pack();
+    }
+    
+    public void setRemainingFlags(int remainingFlags)
+    {
+        this.remainingFlags.setText(Integer.toString(remainingFlags));
     }
 }

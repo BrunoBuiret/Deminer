@@ -52,6 +52,8 @@ public class Deminer extends MouseAdapter
     
     protected int undiscoveredCells;
     
+    protected int flagsNumber;
+    
     protected int minesNumber;
     
     /**
@@ -86,6 +88,7 @@ public class Deminer extends MouseAdapter
         this.gridModel = null;
         this.undiscoveredCells = 0;
         this.minesNumber = 0;
+        this.flagsNumber = 0;
         
         SwingUtilities.invokeLater(() ->
         {
@@ -165,8 +168,10 @@ public class Deminer extends MouseAdapter
         while(n < minesNumber);
         
         this.mainWindow.setCells(cellsView, cols, rows);
+        this.mainWindow.setRemainingFlags(minesNumber);
         this.undiscoveredCells = cols * rows;
         this.minesNumber = minesNumber;
+        this.flagsNumber = 0;
     }
     
     protected void propagateDiscovery(deminer.model.Cell firstCell)
@@ -255,6 +260,8 @@ public class Deminer extends MouseAdapter
         else if(e.getButton() == MouseEvent.BUTTON3)
         {
             cellModel.toggleFlag();
+            this.flagsNumber += cellModel.isFlagged() ? 1: -1;
+            this.mainWindow.setRemainingFlags(this.minesNumber - this.flagsNumber);
         }
     }
     
