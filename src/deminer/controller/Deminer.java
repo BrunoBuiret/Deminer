@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Stack;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -45,7 +46,13 @@ public class Deminer extends MouseAdapter
      */
     protected MainWindow mainWindow;
     
+    protected deminer.model.Grid gridModel;
+    
     protected Map<deminer.view.Cell, deminer.model.Cell> cellsCorrespondence;
+    
+    protected int undiscoveredCells;
+    
+    protected int minesNumber;
     
     /**
      * 
@@ -76,6 +83,9 @@ public class Deminer extends MouseAdapter
         // ...
         this.mainWindow = new MainWindow(this);
         this.mainWindow.setVisible(true);
+        this.gridModel = null;
+        this.undiscoveredCells = 0;
+        this.minesNumber = 0;
         
         SwingUtilities.invokeLater(() ->
         {
@@ -105,7 +115,7 @@ public class Deminer extends MouseAdapter
             }
         }
         
-        deminer.model.Grid gridModel = new deminer.model.Grid(cellsModel, cols, rows, cellsMap);
+        this.gridModel = new deminer.model.Grid(cellsModel, cols, rows, cellsMap);
         
         // Create the view
         deminer.view.Cell[][] cellsView = new deminer.view.Cell[cols][rows];
@@ -155,6 +165,8 @@ public class Deminer extends MouseAdapter
         while(n < minesNumber);
         
         this.mainWindow.setCells(cellsView, cols, rows);
+        this.undiscoveredCells = cols * rows;
+        this.minesNumber = minesNumber;
     }
     
     protected void propagateDiscovery(deminer.model.Cell firstCell)
@@ -167,17 +179,35 @@ public class Deminer extends MouseAdapter
             while(!stack.empty())
             {
                 deminer.model.Cell currentCell = stack.pop();
-                List<deminer.model.Cell> neighboursList = currentCell.getGrid().getNeighbours(currentCell);
                 
-                currentCell.setDiscovered(true);
-                
-                for(deminer.model.Cell neighbourCell : neighboursList)
+                if(!currentCell.isDiscovered())
                 {
-                    if(!neighbourCell.isDiscovered() && !neighbourCell.isFlagged() && currentCell.getMinesNumber() == 0)
+                    List<deminer.model.Cell> neighboursList = currentCell.getGrid().getNeighbours(currentCell);
+                    currentCell.setDiscovered(true);
+                    this.undiscoveredCells--;
+                
+                    for(deminer.model.Cell neighbourCell : neighboursList)
                     {
-                        stack.push(neighbourCell);
+                        if(!neighbourCell.isDiscovered() && !neighbourCell.isFlagged() && currentCell.getMinesNumber() == 0)
+                        {
+                            stack.push(neighbourCell);
+                        }
                     }
                 }
+            }
+        }
+    }
+    
+    public void discoverAll()
+    {
+        deminer.model.Cell[][] cells = this.gridModel.getCells();
+        
+        for(deminer.model.Cell[] x : cells)
+        {
+            for(deminer.model.Cell y : x)
+            {
+                if(!y.isDiscovered())
+                    y.setDiscovered(true);
             }
         }
     }
@@ -195,7 +225,31 @@ public class Deminer extends MouseAdapter
         
         if(e.getButton() == MouseEvent.BUTTON1 && !cellModel.isFlagged() && !cellModel.isDiscovered())
         {
-            this.propagateDiscovery(cellModel);
+            Deminer that = this;
+            
+            if(!cellModel.isTrapped())
+            {
+                this.propagateDiscovery(cellModel);
+                
+                if(this.undiscoveredCells == this.minesNumber)
+                {
+                    SwingUtilities.invokeLater(() -> 
+                    {
+                        that.discoverAll();
+                    });
+                    
+                    JOptionPane.showMessageDialog(mainWindow, "Vous avez gagné.", "Victoire", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            else
+            {
+                SwingUtilities.invokeLater(() -> 
+                {
+                    that.discoverAll();
+                });
+                
+                JOptionPane.showMessageDialog(mainWindow, "Vous avez cliqué sur une mine.", "Défaite", JOptionPane.INFORMATION_MESSAGE);
+            }
             
         }
         else if(e.getButton() == MouseEvent.BUTTON3)

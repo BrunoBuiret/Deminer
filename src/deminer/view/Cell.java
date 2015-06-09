@@ -31,7 +31,7 @@ public class Cell extends JLabel implements Observer
         Cell.COLORS[0] = Color.GREEN;
         Cell.COLORS[1] = Color.BLUE;
         Cell.COLORS[2] = Color.MAGENTA;
-        Cell.COLORS[3] = Color.YELLOW;
+        Cell.COLORS[3] = Color.CYAN;
         Cell.COLORS[4] = Color.ORANGE;
         Cell.COLORS[5] = Color.RED;
         Cell.COLORS[6] = Color.pink;

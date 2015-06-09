@@ -2,7 +2,6 @@ package deminer.model;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +51,21 @@ public class Grid
                 this.cells[x][y].setGrid(this);
             }
         }
+    }
+    
+    public int getCols()
+    {
+        return this.cols;
+    }
+    
+    public int getRows()
+    {
+        return this.rows;
+    }
+    
+    public Cell[][] getCells()
+    {
+        return this.cells;
     }
     
     /**

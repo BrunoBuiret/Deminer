@@ -1,15 +1,20 @@
 package deminer.view;
 
 import deminer.controller.Deminer;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.KeyStroke;
+import javax.swing.SpinnerNumberModel;
 
 /**
  * @author Bruno Buiret, Thomas Arnaud
@@ -35,10 +40,6 @@ public class MainWindow extends JFrame
         JMenuItem hardGameItem = new JMenuItem("Difficile");
         JMenuItem customGameItem = new JMenuItem("Personnalisée");
         
-        JMenuItem statisticsItem = new JMenuItem("Statistiques");
-        statisticsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
-        statisticsItem.setEnabled(false);
-        
         JMenuItem exitItem = new JMenuItem("Quitter");
         
         newGameMenu.add(easyGameItem);
@@ -47,8 +48,6 @@ public class MainWindow extends JFrame
         newGameMenu.addSeparator();
         newGameMenu.add(customGameItem);
         gameMenu.add(newGameMenu);
-        gameMenu.addSeparator();
-        gameMenu.add(statisticsItem);
         gameMenu.addSeparator();
         gameMenu.add(exitItem);
         
@@ -85,6 +84,40 @@ public class MainWindow extends JFrame
         
         hardGameItem.addActionListener((ActionEvent e) -> {
             deminer.createNewGame(Deminer.SETTINGS[Deminer.HARD][0], Deminer.SETTINGS[Deminer.HARD][1], Deminer.SETTINGS[Deminer.HARD][2]);
+        });
+        
+        MainWindow that = this;
+        
+        customGameItem.addActionListener((ActionEvent e) -> {
+            JLabel colsNumberLabel = new JLabel("Nombre de colonnes");
+            JSpinner colsNumber = new JSpinner(new SpinnerNumberModel(10, 1, 50, 1));
+            JLabel rowsNumberLabel = new JLabel("Nombre de lignes");
+            JSpinner rowsNumber = new JSpinner(new SpinnerNumberModel(10, 1, 50, 1));
+            JLabel minesNumberLabel = new JLabel("Nombre de mines");
+            JSpinner minesNumber = new JSpinner(new SpinnerNumberModel(10, 1, 2500, 1));
+            
+            JPanel panePanel = new JPanel(new GridLayout(3, 2));
+            
+            panePanel.add(colsNumberLabel);
+            panePanel.add(colsNumber);
+            panePanel.add(rowsNumberLabel);
+            panePanel.add(rowsNumber);
+            panePanel.add(minesNumberLabel);
+            panePanel.add(minesNumber);
+            
+            int result = JOptionPane.showConfirmDialog(that, panePanel, "Partie personnalisée", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            
+            if (result == JOptionPane.OK_OPTION) 
+            {
+                if((int) minesNumber.getValue() < (int) colsNumber.getValue() * (int) rowsNumber.getValue())
+                {
+                    deminer.createNewGame((int) colsNumber.getValue(), (int) rowsNumber.getValue(), (int) minesNumber.getValue());
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(that, "Ce terrain ne peut pas contenir autant de mines.", "Paramètre invalide", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         });
         
         exitItem.addActionListener((ActionEvent e) -> {
