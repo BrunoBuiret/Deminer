@@ -2,7 +2,9 @@ package deminer.view;
 
 import deminer.controller.Deminer;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.BoxLayout;
@@ -79,7 +81,7 @@ public class MainWindow extends JFrame
         
         JPanel headerPanel = new JPanel();
         GridBagConstraints gridBagConstraints;
-        java.awt.GridBagLayout headerLayout = new java.awt.GridBagLayout();
+        GridBagLayout headerLayout = new GridBagLayout();
         headerLayout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
         headerLayout.rowHeights = new int[] {0};
         headerPanel.setLayout(headerLayout);
@@ -89,33 +91,33 @@ public class MainWindow extends JFrame
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.anchor = GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new Insets(0, 5, 0, 0);
         headerPanel.add(scoreIcon, gridBagConstraints);
 
         this.remainingFlags = new JLabel();
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.1;
         headerPanel.add(remainingFlags, gridBagConstraints);
 
         this.timer = new JLabel();
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
         gridBagConstraints.weightx = 0.1;
         headerPanel.add(timer, gridBagConstraints);
 
         JLabel timerIcon = new JLabel();
         timerIcon.setIcon(new ImageIcon(this.getClass().getResource("/deminer/resources/clock.png")));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(0, 0, 0, 5);
         headerPanel.add(timerIcon, gridBagConstraints);
         
         this.add(headerPanel);
@@ -124,21 +126,25 @@ public class MainWindow extends JFrame
         // Update the window's size
         this.pack();
         
-        easyGameItem.addActionListener((ActionEvent e) -> {
+        easyGameItem.addActionListener((ActionEvent e) ->
+        {
             deminer.createNewGame(Deminer.SETTINGS[Deminer.EASY][0], Deminer.SETTINGS[Deminer.EASY][1], Deminer.SETTINGS[Deminer.EASY][2]);
         });
         
-        mediumGameItem.addActionListener((ActionEvent e) -> {
+        mediumGameItem.addActionListener((ActionEvent e) ->
+        {
             deminer.createNewGame(Deminer.SETTINGS[Deminer.MEDIUM][0], Deminer.SETTINGS[Deminer.MEDIUM][1], Deminer.SETTINGS[Deminer.MEDIUM][2]);
         });
         
-        hardGameItem.addActionListener((ActionEvent e) -> {
+        hardGameItem.addActionListener((ActionEvent e) ->
+        {
             deminer.createNewGame(Deminer.SETTINGS[Deminer.HARD][0], Deminer.SETTINGS[Deminer.HARD][1], Deminer.SETTINGS[Deminer.HARD][2]);
         });
         
         MainWindow that = this;
         
-        customGameItem.addActionListener((ActionEvent e) -> {
+        customGameItem.addActionListener((ActionEvent e) ->
+        {
             JLabel colsNumberLabel = new JLabel("Nombre de colonnes");
             JSpinner colsNumber = new JSpinner(new SpinnerNumberModel(10, 1, 50, 1));
             JLabel rowsNumberLabel = new JLabel("Nombre de lignes");
@@ -170,7 +176,8 @@ public class MainWindow extends JFrame
             }
         });
         
-        exitItem.addActionListener((ActionEvent e) -> {
+        exitItem.addActionListener((ActionEvent e) ->
+        {
             System.exit(0);
         });
     }
