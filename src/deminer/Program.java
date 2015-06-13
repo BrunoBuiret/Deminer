@@ -11,6 +11,11 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public abstract class Program
 {
+    /**
+     * Main entry point of the program.
+     * 
+     * @param args Reference to the command line arguments.
+     */
     public static void main(String[] args)
     {
         // Get the OS style and apply it

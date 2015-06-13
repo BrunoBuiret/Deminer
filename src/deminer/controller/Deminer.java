@@ -191,7 +191,7 @@ public class Deminer extends MouseAdapter
     /**
      * Discovers the whole board.
      */
-    public void discoverAll()
+    protected void discoverAll()
     {
         deminer.model.Cell[][] cells = this.gridModel.getCells();
         

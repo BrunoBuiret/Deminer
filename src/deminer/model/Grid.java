@@ -44,13 +44,10 @@ public class Grid
         this.rows = rows;
         this.cells = cells;
         this.cellsMap = cellsMap;
+        
         for(int y = 0; y < rows; y++)
-        {
             for(int x = 0; x < cols; x++)
-            {
                 this.cells[x][y].setGrid(this);
-            }
-        }
     }
     
     /**

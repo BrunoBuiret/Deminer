@@ -28,20 +28,20 @@ public abstract class StyleUtilities
     /**
      * Array of text colors.
      */
-    public static final Color[] COLORS = new Color[8];
+    public static final Color[] TEXT_COLORS = new Color[8];
     
     /**
      * Initializes the array of text colors.
      */
     static
     {
-        StyleUtilities.COLORS[0] = Color.GREEN;
-        StyleUtilities.COLORS[1] = Color.BLUE;
-        StyleUtilities.COLORS[2] = Color.MAGENTA;
-        StyleUtilities.COLORS[3] = Color.CYAN;
-        StyleUtilities.COLORS[4] = Color.ORANGE;
-        StyleUtilities.COLORS[5] = Color.RED;
-        StyleUtilities.COLORS[6] = Color.PINK;
-        StyleUtilities.COLORS[7] = Color.BLACK;
+        StyleUtilities.TEXT_COLORS[0] = Color.GREEN;
+        StyleUtilities.TEXT_COLORS[1] = Color.BLUE;
+        StyleUtilities.TEXT_COLORS[2] = Color.MAGENTA;
+        StyleUtilities.TEXT_COLORS[3] = Color.CYAN;
+        StyleUtilities.TEXT_COLORS[4] = Color.ORANGE;
+        StyleUtilities.TEXT_COLORS[5] = Color.RED;
+        StyleUtilities.TEXT_COLORS[6] = Color.PINK;
+        StyleUtilities.TEXT_COLORS[7] = Color.BLACK;
     }
 }

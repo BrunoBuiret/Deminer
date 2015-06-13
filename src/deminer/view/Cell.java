@@ -13,8 +13,6 @@ import javax.swing.SwingConstants;
  */
 public class Cell extends JLabel implements Observer
 {
-    
-    
     /**
      * Creates a new view of a cell.
      */
@@ -57,7 +55,7 @@ public class Cell extends JLabel implements Observer
                     }
                     else if(model.getMinesNumber() > 0)
                     {
-                        this.setForeground(StyleUtilities.COLORS[model.getMinesNumber() - 1]);
+                        this.setForeground(StyleUtilities.TEXT_COLORS[model.getMinesNumber() - 1]);
                         this.setText(Integer.toString(model.getMinesNumber()));
                     }
                 }

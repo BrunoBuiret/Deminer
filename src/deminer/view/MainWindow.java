@@ -26,12 +26,26 @@ import javax.swing.SwingConstants;
  */
 public class MainWindow extends JFrame
 {
+    /**
+     * Reference to the grid view.
+     */
     protected Grid grid;
     
+    /**
+     * Reference to the label displaying the time.
+     */
     protected JLabel timer;
     
+    /**
+     * Reference to the label displaying the number of flags left.
+     */
     protected JLabel remainingFlags;
     
+    /**
+     * Creates a new main window.
+     * 
+     * @param deminer Reference to the deminer controller.
+     */
     public MainWindow(Deminer deminer)
     {
         // Window parameters
