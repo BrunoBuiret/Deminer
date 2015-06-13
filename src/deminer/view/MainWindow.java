@@ -1,14 +1,13 @@
 package deminer.view;
 
 import deminer.controller.Deminer;
-import deminer.utilities.DeminerUtilities;
+import deminer.utilities.SettingsUtilities;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 
 /**
  * @author Bruno Buiret, Thomas Arnaud
@@ -38,6 +38,7 @@ public class MainWindow extends JFrame
         this.setTitle("Démineur");
         this.setIconImage((new ImageIcon(this.getClass().getResource("/deminer/resources/window-icon.png"))).getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         
         // Build the game menu
         JMenu gameMenu = new JMenu("Partie");
@@ -78,79 +79,85 @@ public class MainWindow extends JFrame
         menuBar.add(helpMenu);
         
         // Build the window's body
-        this.getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
-        
-        JPanel headerPanel = new JPanel();
+        GridBagLayout layout = new GridBagLayout();
         GridBagConstraints gridBagConstraints;
-        GridBagLayout headerLayout = new GridBagLayout();
-        headerLayout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
-        headerLayout.rowHeights = new int[] {0};
-        headerPanel.setLayout(headerLayout);
-
+        
+        layout.columnWidths = new int[]{0, 5, 0, 5, 0, 5, 0};
+        layout.rowHeights = new int[]{0, 0};
+        this.getContentPane().setLayout(layout);
+        
         JLabel scoreIcon = new JLabel();
+        scoreIcon.setHorizontalAlignment(SwingConstants.CENTER);
         scoreIcon.setIcon(new ImageIcon(this.getClass().getResource("/deminer/resources/game.png")));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new Insets(0, 5, 0, 0);
-        headerPanel.add(scoreIcon, gridBagConstraints);
-
+        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 0);
+        this.getContentPane().add(scoreIcon, gridBagConstraints);
+        
         this.remainingFlags = new JLabel();
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.1;
-        headerPanel.add(remainingFlags, gridBagConstraints);
-
+        this.getContentPane().add(this.remainingFlags, gridBagConstraints);
+        
         this.timer = new JLabel();
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = GridBagConstraints.LINE_END;
         gridBagConstraints.weightx = 0.1;
-        headerPanel.add(timer, gridBagConstraints);
-
+        this.getContentPane().add(this.timer, gridBagConstraints);
+        
         JLabel timerIcon = new JLabel();
+        timerIcon.setHorizontalAlignment(SwingConstants.CENTER);
         timerIcon.setIcon(new ImageIcon(this.getClass().getResource("/deminer/resources/clock.png")));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new Insets(0, 0, 0, 5);
-        headerPanel.add(timerIcon, gridBagConstraints);
+        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new Insets(5, 0, 5, 5);
+        this.getContentPane().add(timerIcon, gridBagConstraints);
         
-        this.add(headerPanel);
-        this.add(this.grid = new Grid());
+        this.grid = new Grid();
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 0.1;
+        this.getContentPane().add(this.grid, gridBagConstraints);
         
         // Update the window's size
         this.pack();
         
+        // Define the menu items' action
         easyGameItem.addActionListener((ActionEvent e) ->
         {
-            deminer.createNewGame(
-                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.COLS],
-                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.ROWS],
-                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.MINES]
+            deminer.createNewGame(SettingsUtilities.SETTINGS[SettingsUtilities.EASY][SettingsUtilities.COLS],
+                SettingsUtilities.SETTINGS[SettingsUtilities.EASY][SettingsUtilities.ROWS],
+                SettingsUtilities.SETTINGS[SettingsUtilities.EASY][SettingsUtilities.MINES]
             );
         });
         
         mediumGameItem.addActionListener((ActionEvent e) ->
         {
-            deminer.createNewGame(
-                DeminerUtilities.SETTINGS[DeminerUtilities.MEDIUM][DeminerUtilities.COLS],
-                DeminerUtilities.SETTINGS[DeminerUtilities.MEDIUM][DeminerUtilities.ROWS],
-                DeminerUtilities.SETTINGS[DeminerUtilities.MEDIUM][DeminerUtilities.MINES]
+            deminer.createNewGame(SettingsUtilities.SETTINGS[SettingsUtilities.MEDIUM][SettingsUtilities.COLS],
+                SettingsUtilities.SETTINGS[SettingsUtilities.MEDIUM][SettingsUtilities.ROWS],
+                SettingsUtilities.SETTINGS[SettingsUtilities.MEDIUM][SettingsUtilities.MINES]
             );
         });
         
         hardGameItem.addActionListener((ActionEvent e) ->
         {
-            deminer.createNewGame(
-                DeminerUtilities.SETTINGS[DeminerUtilities.HARD][DeminerUtilities.COLS],
-                DeminerUtilities.SETTINGS[DeminerUtilities.HARD][DeminerUtilities.ROWS],
-                DeminerUtilities.SETTINGS[DeminerUtilities.HARD][DeminerUtilities.MINES]
+            deminer.createNewGame(SettingsUtilities.SETTINGS[SettingsUtilities.HARD][SettingsUtilities.COLS],
+                SettingsUtilities.SETTINGS[SettingsUtilities.HARD][SettingsUtilities.ROWS],
+                SettingsUtilities.SETTINGS[SettingsUtilities.HARD][SettingsUtilities.MINES]
             );
         });
         
@@ -193,14 +200,52 @@ public class MainWindow extends JFrame
         {
             System.exit(0);
         });
+        
+        helpItem.addActionListener((ActionEvent e) ->
+        {
+            JOptionPane.showMessageDialog(
+                that,
+                "Le but du jeu est de révéler l'ensemble du plateau sans cliquer" +
+                " sur une mine.\nUn clic gauche permet de révéler une case et" +
+                " un clic droit permet de marquer une case comme étant piégée." +
+                " Si un nombre est présent dans une case alors il indique le nombre" +
+                " de bombes adjacentes à celle-ci.",
+                "Aide",
+                JOptionPane.PLAIN_MESSAGE
+            );
+        });
+        
+        aboutItem.addActionListener((ActionEvent e) ->
+        {
+            JOptionPane.showMessageDialog(
+                that,
+                "Démineur créé dans le cadre du projet informatique encadré de la" +
+                " troisième année d'informatique à Polytech Lyon par Bruno Buiret" +
+                " et Thomas Arnaud.",
+                "A propos",
+                JOptionPane.PLAIN_MESSAGE
+            );
+        });
     }
     
+    /**
+     * Assigns a new matrix of cells to the window.
+     * 
+     * @param cells The cells themselves.
+     * @param cols Number of columns.
+     * @param rows Number of rows.
+     */
     public void setCells(Cell[][] cells, int cols, int rows)
     {
         this.grid.setCells(cells, cols, rows);
         this.pack();
     }
     
+    /**
+     * Writes the number of remaining flags on the window.
+     * 
+     * @param remainingFlags Number of remaining flags.
+     */
     public void setRemainingFlags(int remainingFlags)
     {
         this.remainingFlags.setText(Integer.toString(remainingFlags));

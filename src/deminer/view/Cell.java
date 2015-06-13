@@ -1,42 +1,18 @@
 package deminer.view;
 
+import deminer.utilities.StyleUtilities;
 import java.awt.Dimension;
-import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 
 /**
  * @author Bruno Buiret, Thomas Arnaud
  */
 public class Cell extends JLabel implements Observer
 {
-    protected static final Dimension MINIMUM_DIMENSION = new Dimension(10, 10);
-    protected static final Dimension PREFERRED_DIMENSION = new Dimension(25, 25);
-    protected static final Dimension MAXIMUM_DIMENSION = new Dimension(40, 40);
-    
-    protected static final Border NON_DISCOVERED_BORDER = BorderFactory.createBevelBorder(BevelBorder.RAISED);
-    protected static final Border DISCOVERED_BORDER = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-    
-    public static final Color HOVER_COLOR = Color.GRAY;
-    protected static final Color[] COLORS = new Color[8];
-    
-    static
-    {
-        Cell.COLORS[0] = Color.GREEN;
-        Cell.COLORS[1] = Color.BLUE;
-        Cell.COLORS[2] = Color.MAGENTA;
-        Cell.COLORS[3] = Color.CYAN;
-        Cell.COLORS[4] = Color.ORANGE;
-        Cell.COLORS[5] = Color.RED;
-        Cell.COLORS[6] = Color.pink;
-        Cell.COLORS[7] = Color.BLACK;
-    }
     
     
     /**
@@ -44,10 +20,10 @@ public class Cell extends JLabel implements Observer
      */
     public Cell()
     {
-        this.setMinimumSize(Cell.MINIMUM_DIMENSION);
-        this.setPreferredSize(Cell.PREFERRED_DIMENSION);
-        this.setMaximumSize(Cell.MAXIMUM_DIMENSION);
-        this.setBorder(Cell.NON_DISCOVERED_BORDER);
+        this.setMinimumSize(new Dimension(10, 10));
+        this.setPreferredSize(new Dimension(25, 25));
+        this.setMaximumSize(new Dimension(40, 40));
+        this.setBorder(StyleUtilities.NON_DISCOVERED_BORDER);
         this.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
@@ -66,7 +42,7 @@ public class Cell extends JLabel implements Observer
             
             if(model.isDiscovered())
             {
-                this.setBorder(Cell.DISCOVERED_BORDER);
+                this.setBorder(StyleUtilities.DISCOVERED_BORDER);
                 this.setBackground(null);
                 
                 if(model.isTrapped())
@@ -81,7 +57,7 @@ public class Cell extends JLabel implements Observer
                     }
                     else if(model.getMinesNumber() > 0)
                     {
-                        this.setForeground(Cell.COLORS[model.getMinesNumber() - 1]);
+                        this.setForeground(StyleUtilities.COLORS[model.getMinesNumber() - 1]);
                         this.setText(Integer.toString(model.getMinesNumber()));
                     }
                 }

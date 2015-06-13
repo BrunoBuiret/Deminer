@@ -53,16 +53,31 @@ public class Grid
         }
     }
     
+    /**
+     * Gets the number of columns.
+     * 
+     * @return Number of columns.
+     */
     public int getCols()
     {
         return this.cols;
     }
     
+    /**
+     * Gets the number of rows.
+     * 
+     * @return Number of rows.
+     */
     public int getRows()
     {
         return this.rows;
     }
     
+    /**
+     * Gets the matrix of cells.
+     * 
+     * @return Matrix of cells.
+     */
     public Cell[][] getCells()
     {
         return this.cells;

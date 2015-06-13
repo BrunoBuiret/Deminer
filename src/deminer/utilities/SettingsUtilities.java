@@ -1,12 +1,9 @@
 package deminer.utilities;
 
-import deminer.controller.Deminer;
-
 /**
- *
- * @author PtitBlond
+ * @author Bruno Buiret, Thomas Arnaud
  */
-public abstract class DeminerUtilities
+public abstract class SettingsUtilities
 {
     /**
      * References the easy difficulty.
@@ -50,16 +47,16 @@ public abstract class DeminerUtilities
     static
     {
         // Easy game settings
-        DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.COLS] = DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.ROWS] = 9;
-        DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.MINES] = 10;
+        SettingsUtilities.SETTINGS[SettingsUtilities.EASY][SettingsUtilities.COLS] = SettingsUtilities.SETTINGS[SettingsUtilities.EASY][SettingsUtilities.ROWS] = 9;
+        SettingsUtilities.SETTINGS[SettingsUtilities.EASY][SettingsUtilities.MINES] = 10;
         
         // Medium game setings
-        DeminerUtilities.SETTINGS[DeminerUtilities.MEDIUM][DeminerUtilities.COLS] = DeminerUtilities.SETTINGS[DeminerUtilities.MEDIUM][DeminerUtilities.ROWS] = 16;
-        DeminerUtilities.SETTINGS[DeminerUtilities.MEDIUM][DeminerUtilities.MINES] = 40;
+        SettingsUtilities.SETTINGS[SettingsUtilities.MEDIUM][SettingsUtilities.COLS] = SettingsUtilities.SETTINGS[SettingsUtilities.MEDIUM][SettingsUtilities.ROWS] = 16;
+        SettingsUtilities.SETTINGS[SettingsUtilities.MEDIUM][SettingsUtilities.MINES] = 40;
         
         // Hard game settings
-        DeminerUtilities.SETTINGS[DeminerUtilities.HARD][DeminerUtilities.COLS] = 30;
-        DeminerUtilities.SETTINGS[DeminerUtilities.HARD][DeminerUtilities.ROWS] = 16;
-        DeminerUtilities.SETTINGS[DeminerUtilities.HARD][DeminerUtilities.MINES] = 99;
+        SettingsUtilities.SETTINGS[SettingsUtilities.HARD][SettingsUtilities.COLS] = 30;
+        SettingsUtilities.SETTINGS[SettingsUtilities.HARD][SettingsUtilities.ROWS] = 16;
+        SettingsUtilities.SETTINGS[SettingsUtilities.HARD][SettingsUtilities.MINES] = 99;
     }
 }

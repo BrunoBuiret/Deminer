@@ -8,7 +8,7 @@ import java.util.Observable;
 public class Cell extends Observable
 {
     /**
-     * neighbour mines number
+     * Neighbour mines number
      */
     protected int minesNumber;
     
@@ -39,7 +39,7 @@ public class Cell extends Observable
     {
         this.discovered = this.trapped = this.flagged = false;
         this.grid = null;
-        minesNumber = 0;
+        this.minesNumber = 0;
     }
     
     /**
@@ -120,29 +120,49 @@ public class Cell extends Observable
         this.notifyObservers();
     }
     
+    /**
+     * Gets a reference to the grid to which this cell belongs.
+     * 
+     * @return Grid's reference.
+     */
     public Grid getGrid()
     {
         return this.grid;
     }
     
+    /**
+     * Sets the reference to the grid to which this cell belongs.
+     * 
+     * @param grid Grid's reference.
+     */
     public void setGrid(Grid grid)
     {
         this.grid = grid;
     }
     
+    /**
+     * Gets the number of mines around this cell.
+     * 
+     * @return Number of mines.
+     */
     public int getMinesNumber()
     {
         return this.minesNumber;
     }
     
+    /**
+     * Sets the number of mines around this cell.
+     * 
+     * @param minesNumber Number of mines.
+     */
     public void setMinesNumber(int minesNumber)
     {
         this.minesNumber = minesNumber;
     }
     
     /**
-     * Overrides {@link java.util.Observable.notifyObservers()} to avoid repeating
-     * the {@link java.util.Observable.setChanged()} method.
+     * Overrides {@link java.util.Observable#notifyObservers()} to avoid repeating
+     * the {@link java.util.Observable#setChanged()} method.
      */
     @Override
     public void notifyObservers()
@@ -151,6 +171,10 @@ public class Cell extends Observable
         super.notifyObservers();
     }
     
+    /**
+     * Overrides {@link java.util.Observable#notifyObservers(java.lang.Object)} to avoid repeating
+     * the {@link java.util.Observable#setChanged()} method.
+     */
     @Override
     public void notifyObservers(Object arg)
     {

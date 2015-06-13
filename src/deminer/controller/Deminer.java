@@ -1,6 +1,7 @@
 package deminer.controller;
 
-import deminer.utilities.DeminerUtilities;
+import deminer.utilities.SettingsUtilities;
+import deminer.utilities.StyleUtilities;
 import deminer.view.MainWindow;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -23,23 +24,36 @@ public class Deminer extends MouseAdapter
      */
     protected MainWindow mainWindow;
     
+    /**
+     * Reference to the current game model.
+     */
     protected deminer.model.Grid gridModel;
     
+    /**
+     * Map between a cell's view and model for the current game.
+     */
     protected Map<deminer.view.Cell, deminer.model.Cell> cellsCorrespondence;
     
+    /**
+     * Number of cells not yet discovered for the current game..
+     */
     protected int undiscoveredCells;
     
+    /**
+     * Number of flagged cells for the current game.
+     */
     protected int flagsNumber;
     
+    /**
+     * Number of mines for the current game..
+     */
     protected int minesNumber;
     
     /**
-     * 
+     * Creates a new deminer controller.
      */
     public Deminer()
     {
-        Deminer that = this;
-        
         // Initialize the window
         this.mainWindow = new MainWindow(this);
         this.mainWindow.setVisible(true);
@@ -51,12 +65,13 @@ public class Deminer extends MouseAdapter
         this.flagsNumber = 0;
         
         // Launch an easy game when possible
+        Deminer that = this;
+        
         SwingUtilities.invokeLater(() ->
         {
-            that.createNewGame(
-                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.COLS],
-                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.ROWS],
-                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.MINES]
+            that.createNewGame(SettingsUtilities.SETTINGS[SettingsUtilities.EASY][SettingsUtilities.COLS],
+                SettingsUtilities.SETTINGS[SettingsUtilities.EASY][SettingsUtilities.ROWS],
+                SettingsUtilities.SETTINGS[SettingsUtilities.EASY][SettingsUtilities.MINES]
             );
         });
     }
@@ -247,7 +262,7 @@ public class Deminer extends MouseAdapter
         
         if(!cellModel.isDiscovered())
         {
-            cellView.setBackground(deminer.view.Cell.HOVER_COLOR);
+            cellView.setBackground(StyleUtilities.HOVER_COLOR);
         }
     }
     
