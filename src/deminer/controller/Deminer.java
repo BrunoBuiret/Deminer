@@ -1,5 +1,6 @@
 package deminer.controller;
 
+import deminer.utilities.DeminerUtilities;
 import deminer.view.MainWindow;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -18,30 +19,6 @@ import javax.swing.SwingUtilities;
 public class Deminer extends MouseAdapter
 {
     /**
-     * 
-     */
-    public static final int EASY = 0;
-    
-    /**
-     * 
-     */
-    public static final int MEDIUM = 1;
-    
-    /**
-     * 
-     */
-    public static final int HARD = 2;
-    
-    /**
-     * Game settings, first index is the difficulty and the second one is the
-     * settings :<br/>
-     *  * 0 : columns number<br/>
-     *  * 1 : rows number<br/>
-     *  * 2 : mines number
-     */
-    public static final int[][] SETTINGS = new int[3][3];
-    
-    /**
      * Reference to the main window view.
      */
     protected MainWindow mainWindow;
@@ -59,49 +36,37 @@ public class Deminer extends MouseAdapter
     /**
      * 
      */
-    static
-    {
-        // Easy game SETTINGS
-        Deminer.SETTINGS[Deminer.EASY][0] = Deminer.SETTINGS[Deminer.EASY][1] = 9;
-        Deminer.SETTINGS[Deminer.EASY][2] = 10;
-        
-        // Easy game SETTINGS
-        Deminer.SETTINGS[Deminer.MEDIUM][0] = Deminer.SETTINGS[Deminer.MEDIUM][1] = 16;
-        Deminer.SETTINGS[Deminer.MEDIUM][2] = 40;
-        
-        // Easy game SETTINGS
-        Deminer.SETTINGS[Deminer.HARD][0] = 30;
-        Deminer.SETTINGS[Deminer.HARD][1] = 16;
-        Deminer.SETTINGS[Deminer.HARD][2] = 99;
-    }
-    
-    /**
-     * 
-     */
     public Deminer()
     {
         Deminer that = this;
         
-        // ...
+        // Initialize the window
         this.mainWindow = new MainWindow(this);
         this.mainWindow.setVisible(true);
+        
+        // Initialize the game components
         this.gridModel = null;
         this.undiscoveredCells = 0;
         this.minesNumber = 0;
         this.flagsNumber = 0;
         
+        // Launch an easy game when possible
         SwingUtilities.invokeLater(() ->
         {
-            that.createNewGame(Deminer.SETTINGS[Deminer.HARD][0], Deminer.SETTINGS[Deminer.HARD][1], Deminer.SETTINGS[Deminer.HARD][2]);
+            that.createNewGame(
+                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.COLS],
+                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.ROWS],
+                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.MINES]
+            );
         });
     }
     
     /**
-     * Creates a new custom game.
+     * Creates a new game.
      * 
-     * @param cols
-     * @param rows
-     * @param minesNumber 
+     * @param cols Number of columns.
+     * @param rows Number of rows.
+     * @param minesNumber Number of mines.
      */
     public void createNewGame(int cols, int rows, int minesNumber)
     {
