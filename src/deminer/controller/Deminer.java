@@ -78,7 +78,9 @@ public class Deminer extends MouseAdapter
         {
             for(int x = 0; x < cols; x++)
             {
+                // Create the cell
                 cellsModel[x][y] = new deminer.model.Cell();
+                // Memorize its position in the grid
                 cellsMap.put(cellsModel[x][y], new Point(x, y));
             }
         }
@@ -93,21 +95,23 @@ public class Deminer extends MouseAdapter
         {
             for(int x = 0; x < cols; x++)
             {
+                // Create the cell
                 cellsView[x][y] = new deminer.view.Cell();
-                // Link the model 
+                // Link to the model 
                 cellsView[x][y].addMouseListener(this);
                 cellsModel[x][y].addObserver(cellsView[x][y]);
                 // Establish the correspondence between the view and the model
-                cellsCorrespondence.put(cellsView[x][y], cellsModel[x][y]);
+                this.cellsCorrespondence.put(cellsView[x][y], cellsModel[x][y]);
             }
         }
         
-        // Put the mines on the grid
+        // Put the mines on the grid randomly
         int n = 0, x, y;
         Random r = new Random();
         
         do
         {
+            // Determine a position which isn't already trapped
             do
             {
                 x = r.nextInt(cols);
@@ -115,30 +119,34 @@ public class Deminer extends MouseAdapter
             }
             while(cellsModel[x][y].isTrapped());
             
+            // Trap this new position
             cellsModel[x][y].setTrapped(true);
             
-            //notify the neighbour cells
+            // Notify the neighbour cells there's a new bomb around
             for(int row = y - 1; row <= y + 1; row++)
-            {
                 for(int column = x - 1; column <= x + 1; column++)
-                {
                     if(column >= 0 && column < cols && row >= 0 && row < rows && !cellsModel[column][row].isTrapped())
-                    {
                        cellsModel[column][row].setMinesNumber(cellsModel[column][row].getMinesNumber() + 1);
-                    }
-                }
-            }
+            
             n++;
         }
         while(n < minesNumber);
         
+        // Notity the window of the game
         this.mainWindow.setCells(cellsView, cols, rows);
         this.mainWindow.setRemainingFlags(minesNumber);
+        
+        // Initialize the game components
         this.undiscoveredCells = cols * rows;
         this.minesNumber = minesNumber;
         this.flagsNumber = 0;
     }
     
+    /**
+     * Propagates the discovery around <code>firstCell</code> if needed.
+     * 
+     * @param firstCell Reference to the cell the user clicked on.
+     */
     protected void propagateDiscovery(deminer.model.Cell firstCell)
     {
         if(!firstCell.isDiscovered())
@@ -150,6 +158,7 @@ public class Deminer extends MouseAdapter
             {
                 deminer.model.Cell currentCell = stack.pop();
                 
+                // Avoid notifying the same multiple times by testing if it's already discovered
                 if(!currentCell.isDiscovered())
                 {
                     List<deminer.model.Cell> neighboursList = currentCell.getGrid().getNeighbours(currentCell);
@@ -157,29 +166,24 @@ public class Deminer extends MouseAdapter
                     this.undiscoveredCells--;
                 
                     for(deminer.model.Cell neighbourCell : neighboursList)
-                    {
                         if(!neighbourCell.isDiscovered() && !neighbourCell.isFlagged() && currentCell.getMinesNumber() == 0)
-                        {
                             stack.push(neighbourCell);
-                        }
-                    }
                 }
             }
         }
     }
     
+    /**
+     * Discovers the whole board.
+     */
     public void discoverAll()
     {
         deminer.model.Cell[][] cells = this.gridModel.getCells();
         
         for(deminer.model.Cell[] x : cells)
-        {
             for(deminer.model.Cell y : x)
-            {
                 if(!y.isDiscovered())
                     y.setDiscovered(true);
-            }
-        }
     }
     
     /**
@@ -208,7 +212,7 @@ public class Deminer extends MouseAdapter
                         that.discoverAll();
                     });
                     
-                    JOptionPane.showMessageDialog(mainWindow, "Vous avez gagné.", "Victoire", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this.mainWindow, "Vous avez gagné.", "Victoire", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             else
@@ -218,11 +222,11 @@ public class Deminer extends MouseAdapter
                     that.discoverAll();
                 });
                 
-                JOptionPane.showMessageDialog(mainWindow, "Vous avez cliqué sur une mine.", "Défaite", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this.mainWindow, "Vous avez cliqué sur une mine.", "Défaite", JOptionPane.INFORMATION_MESSAGE);
             }
             
         }
-        else if(e.getButton() == MouseEvent.BUTTON3)
+        else if(e.getButton() == MouseEvent.BUTTON3 && !cellModel.isDiscovered())
         {
             cellModel.toggleFlag();
             this.flagsNumber += cellModel.isFlagged() ? 1: -1;

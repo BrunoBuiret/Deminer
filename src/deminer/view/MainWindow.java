@@ -1,6 +1,7 @@
 package deminer.view;
 
 import deminer.controller.Deminer;
+import deminer.utilities.DeminerUtilities;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -128,17 +129,29 @@ public class MainWindow extends JFrame
         
         easyGameItem.addActionListener((ActionEvent e) ->
         {
-            deminer.createNewGame(Deminer.SETTINGS[Deminer.EASY][0], Deminer.SETTINGS[Deminer.EASY][1], Deminer.SETTINGS[Deminer.EASY][2]);
+            deminer.createNewGame(
+                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.COLS],
+                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.ROWS],
+                DeminerUtilities.SETTINGS[DeminerUtilities.EASY][DeminerUtilities.MINES]
+            );
         });
         
         mediumGameItem.addActionListener((ActionEvent e) ->
         {
-            deminer.createNewGame(Deminer.SETTINGS[Deminer.MEDIUM][0], Deminer.SETTINGS[Deminer.MEDIUM][1], Deminer.SETTINGS[Deminer.MEDIUM][2]);
+            deminer.createNewGame(
+                DeminerUtilities.SETTINGS[DeminerUtilities.MEDIUM][DeminerUtilities.COLS],
+                DeminerUtilities.SETTINGS[DeminerUtilities.MEDIUM][DeminerUtilities.ROWS],
+                DeminerUtilities.SETTINGS[DeminerUtilities.MEDIUM][DeminerUtilities.MINES]
+            );
         });
         
         hardGameItem.addActionListener((ActionEvent e) ->
         {
-            deminer.createNewGame(Deminer.SETTINGS[Deminer.HARD][0], Deminer.SETTINGS[Deminer.HARD][1], Deminer.SETTINGS[Deminer.HARD][2]);
+            deminer.createNewGame(
+                DeminerUtilities.SETTINGS[DeminerUtilities.HARD][DeminerUtilities.COLS],
+                DeminerUtilities.SETTINGS[DeminerUtilities.HARD][DeminerUtilities.ROWS],
+                DeminerUtilities.SETTINGS[DeminerUtilities.HARD][DeminerUtilities.MINES]
+            );
         });
         
         MainWindow that = this;
