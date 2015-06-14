@@ -35,13 +35,13 @@ public abstract class StyleUtilities
      */
     static
     {
-        StyleUtilities.TEXT_COLORS[0] = Color.GREEN;
-        StyleUtilities.TEXT_COLORS[1] = Color.BLUE;
+        StyleUtilities.TEXT_COLORS[0] = new Color(51, 204, 204);
+        StyleUtilities.TEXT_COLORS[1] = new Color(255, 100, 0);
         StyleUtilities.TEXT_COLORS[2] = Color.MAGENTA;
-        StyleUtilities.TEXT_COLORS[3] = Color.CYAN;
-        StyleUtilities.TEXT_COLORS[4] = Color.ORANGE;
+        StyleUtilities.TEXT_COLORS[3] = Color.GREEN;
+        StyleUtilities.TEXT_COLORS[4] = Color.BLUE;
         StyleUtilities.TEXT_COLORS[5] = Color.RED;
-        StyleUtilities.TEXT_COLORS[6] = Color.PINK;
+        StyleUtilities.TEXT_COLORS[6] = new Color(128, 0, 0);
         StyleUtilities.TEXT_COLORS[7] = Color.BLACK;
     }
 }
