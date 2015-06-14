@@ -120,6 +120,7 @@ public class MainWindow extends JFrame
         this.getContentPane().add(this.remainingFlags, gridBagConstraints);
         
         this.timer = new JLabel();
+        this.timer.setText("0 s");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
@@ -263,5 +264,30 @@ public class MainWindow extends JFrame
     public void setRemainingFlags(int remainingFlags)
     {
         this.remainingFlags.setText(Integer.toString(remainingFlags));
+    }
+    
+    /**
+     * 
+     * @param elapsedTime
+     */
+    public void setTimer(int elapsedTime)
+    {
+        StringBuilder timerText = new StringBuilder();
+        
+        if(elapsedTime > 3600)
+        {
+            timerText.append((int) elapsedTime / 3600).append("h");
+            elapsedTime -= 3600 * ((int) elapsedTime / 3600);
+        }
+        
+        if(elapsedTime > 60)
+        {
+            timerText.append(String.format("%02d", (int) elapsedTime / 60)).append("m");
+            elapsedTime -= 60 * ((int) elapsedTime / 60);
+        }
+        
+        timerText.append(String.format("%02d", elapsedTime)).append("s");
+        
+        this.timer.setText(timerText.toString());
     }
 }

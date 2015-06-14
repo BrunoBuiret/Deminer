@@ -2,6 +2,7 @@ package deminer.controller;
 
 import deminer.utilities.SettingsUtilities;
 import deminer.utilities.StyleUtilities;
+import deminer.utilities.Timer;
 import deminer.view.MainWindow;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -50,6 +51,11 @@ public class Deminer extends MouseAdapter
     protected int minesNumber;
     
     /**
+     * Utility timer to display elapsed time.
+     */
+    protected Timer timer;
+    
+    /**
      * Creates a new deminer controller.
      */
     public Deminer()
@@ -63,6 +69,7 @@ public class Deminer extends MouseAdapter
         this.undiscoveredCells = 0;
         this.minesNumber = 0;
         this.flagsNumber = 0;
+        this.timer = new Timer(this.mainWindow);
         
         // Launch an easy game when possible
         Deminer that = this;
@@ -85,6 +92,10 @@ public class Deminer extends MouseAdapter
      */
     public void createNewGame(int cols, int rows, int minesNumber)
     {
+        // Was there a game before ?
+        if(this.timer.isRunning())
+            this.timer.stop();
+        
         // Create the model
         deminer.model.Cell[][] cellsModel = new deminer.model.Cell[cols][rows];
         Map<deminer.model.Cell, Point> cellsMap = new HashMap<>();
@@ -155,6 +166,7 @@ public class Deminer extends MouseAdapter
         this.undiscoveredCells = cols * rows;
         this.minesNumber = minesNumber;
         this.flagsNumber = 0;
+        this.timer.reset();
     }
     
     /**
@@ -214,6 +226,9 @@ public class Deminer extends MouseAdapter
         
         if(e.getButton() == MouseEvent.BUTTON1 && !cellModel.isFlagged() && !cellModel.isDiscovered())
         {
+            if(!this.timer.isRunning())
+                this.timer.start();
+            
             Deminer that = this;
             
             if(!cellModel.isTrapped())
@@ -222,6 +237,8 @@ public class Deminer extends MouseAdapter
                 
                 if(this.undiscoveredCells == this.minesNumber)
                 {
+                    this.timer.stop();
+                    
                     SwingUtilities.invokeLater(() -> 
                     {
                         that.discoverAll();
@@ -232,6 +249,8 @@ public class Deminer extends MouseAdapter
             }
             else
             {
+                this.timer.stop();
+                
                 SwingUtilities.invokeLater(() -> 
                 {
                     that.discoverAll();
@@ -243,6 +262,9 @@ public class Deminer extends MouseAdapter
         }
         else if(e.getButton() == MouseEvent.BUTTON3 && !cellModel.isDiscovered())
         {
+            if(!this.timer.isRunning())
+                this.timer.start();
+            
             cellModel.toggleFlag();
             this.flagsNumber += cellModel.isFlagged() ? 1: -1;
             this.mainWindow.setRemainingFlags(this.minesNumber - this.flagsNumber);
