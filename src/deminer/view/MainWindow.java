@@ -274,16 +274,16 @@ public class MainWindow extends JFrame
     {
         StringBuilder timerText = new StringBuilder();
         
-        if(elapsedTime > 3600)
+        if(elapsedTime >= 3600)
         {
             timerText.append((int) elapsedTime / 3600).append("h");
-            elapsedTime -= 3600 * ((int) elapsedTime / 3600);
+            elapsedTime = elapsedTime % 3600;
         }
         
-        if(elapsedTime > 60)
+        if(elapsedTime >= 60)
         {
             timerText.append(String.format("%02d", (int) elapsedTime / 60)).append("m");
-            elapsedTime -= 60 * ((int) elapsedTime / 60);
+            elapsedTime = elapsedTime % 60;
         }
         
         timerText.append(String.format("%02d", elapsedTime)).append("s");
